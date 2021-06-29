@@ -48,7 +48,7 @@ else
   echo "Skipping build env script (none found at ${BUILD_ENV_SCRIPT})"
 fi
 
-docker build "$@" .
+[ -d "./docker" ] && docker build -f ./docker/Dockerfile "$@" . || docker build "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 
 echo "::set-output name=image_name::${IMAGE_NAME}"
