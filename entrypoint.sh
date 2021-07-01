@@ -48,7 +48,15 @@ else
   echo "Skipping build env script (none found at ${BUILD_ENV_SCRIPT})"
 fi
 
-[ -d "./docker" ] && docker build --network host -f ./docker/Dockerfile "$@" . || docker build --network host "$@" .
+DOCKERFILE_NAME=Dockerfile
+if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then 
+    DOCKERFILE_NAME=$(echo "${INPUT_DOCKERFILE_NAME}")
+fi
+
+echo "DOCKERFILE_NAME: ${DOCKERFILE_NAME}"
+echo "INPUT_DOCKERFILE_NAME: ${INPUT_DOCKERFILE_NAME}"
+
+[ -d "./docker" ] && docker build --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 
 echo "::set-output name=image_name::${IMAGE_NAME}"
