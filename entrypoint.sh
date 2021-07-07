@@ -41,7 +41,6 @@ if [ -n "${INPUT_BUILD_ARGS}" ]; then
         set -- "$@" "--build-arg" "${line}"
     done
 fi
-echo 'build_args: ' $BUILD_ARGS
 
 DOCKERFILE_NAME=Dockerfile
 if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then 
@@ -50,6 +49,7 @@ fi
 
 echo "DOCKERFILE_NAME: ${DOCKERFILE_NAME}"
 echo "INPUT_DOCKERFILE_NAME: ${INPUT_DOCKERFILE_NAME}"
+echo 'build_args: ' $@
 
 [ -d "./docker" ] && docker build --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
