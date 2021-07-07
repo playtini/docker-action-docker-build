@@ -35,11 +35,10 @@ fi
 
 echo "INPUT_BUILD_ARGS:" ${INPUT_BUILD_ARGS}
 
-BUILD_ARGS=" "
 if [ -n "${INPUT_BUILD_ARGS}" ]; then
     for line in $INPUT_BUILD_ARGS
     do
-        BUILD_ARGS+="--build-arg ${line} "
+        set -- "$@" "--build-arg" "${line}"
     done
 fi
 echo 'build_args: ' $BUILD_ARGS
