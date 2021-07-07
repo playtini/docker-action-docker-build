@@ -33,14 +33,14 @@ if [ -n "${INPUT_GIT_SHA}" ]; then
   set -- "$@" "--label" "org.label-schema.vcs-ref=${INPUT_GIT_SHA}"
 fi
 
-build_args=""
-if [ -n "${INPUT_IMAGE_TAG}" ]; then
+BUILD_ARGS=""
+if [ -n "${INPUT_BUILD_ARGS}" ]; then
     for line in $INPUT_BUILD_ARGS
     do
-        build_args+=" --build-arg ${line} "
+        BUILD_ARGS+=" --build-arg ${line} "
     done
 fi
-echo 'build_args: ' $build_args
+echo 'build_args: ' $BUILD_ARGS
 
 DOCKERFILE_NAME=Dockerfile
 if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then 
