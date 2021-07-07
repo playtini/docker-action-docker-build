@@ -33,20 +33,13 @@ if [ -n "${INPUT_GIT_SHA}" ]; then
   set -- "$@" "--label" "org.label-schema.vcs-ref=${INPUT_GIT_SHA}"
 fi
 
-BUILD_ENV_SCRIPT=${GITHUB_WORKSPACE}/.github/build-env.sh
-
-if [ -f "${BUILD_ENV_SCRIPT}" ]; then
-  # shellcheck disable=SC1090
-  . "${BUILD_ENV_SCRIPT}"
-  IFS="$(printf '\n ')" && IFS="${IFS% }"
-  set -o noglob
-  for line in $(env | grep BUILD_ARG_); do
-    set -- "$@" '--build-arg' "$(echo "$line" | sed -E 's/(BUILD_ARG_)//g')"
-  done
-  echo "Build arguments: " "$@"
-else
-  echo "Skipping build env script (none found at ${BUILD_ENV_SCRIPT})"
+build_args=""
+if [ -n "${INPUT_BUILD_ARGS}" ]; then
+    while IFS= read -r line; do
+        build_args+=" --build-arg ${line} "
+    done <<< $INPUT_BUILD_ARGS
 fi
+echo $build_args
 
 DOCKERFILE_NAME=Dockerfile
 if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then 
