@@ -3,13 +3,6 @@
 
 set -o errexit
 
-if [ -n "${INPUT_IMAGE_TAG}" ]; then
-    for line in $INPUT_BUILD_ARGS
-    do
-        echo $line
-    done
-fi
-
 GIT_TAG=$(echo "${INPUT_TAG_REF}" | sed -e 's|refs/tags/||')
 IMAGE_NAME="docker.pkg.github.com/${INPUT_IMAGE_NAME}"
 
@@ -41,12 +34,13 @@ if [ -n "${INPUT_GIT_SHA}" ]; then
 fi
 
 build_args=""
-if [ -n "${INPUT_BUILD_ARGS}" ]; then
-    while IFS= read -r line; do
+if [ -n "${INPUT_IMAGE_TAG}" ]; then
+    for line in $INPUT_BUILD_ARGS
+    do
         build_args+=" --build-arg ${line} "
-    done <<< $INPUT_BUILD_ARGS
+    done
 fi
-echo $build_args
+echo 'build_args: ' $build_args
 
 DOCKERFILE_NAME=Dockerfile
 if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then 
