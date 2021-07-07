@@ -3,7 +3,12 @@
 
 set -o errexit
 
-echo 'INPUT_BUILD_ARGS:' $INPUT_BUILD_ARGS
+if [ -n "${INPUT_IMAGE_TAG}" ]; then
+    for line in $INPUT_BUILD_ARGS
+    do
+        echo $line
+    done
+fi
 
 GIT_TAG=$(echo "${INPUT_TAG_REF}" | sed -e 's|refs/tags/||')
 IMAGE_NAME="docker.pkg.github.com/${INPUT_IMAGE_NAME}"
