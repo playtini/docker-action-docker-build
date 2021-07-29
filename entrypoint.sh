@@ -51,6 +51,8 @@ echo "DOCKERFILE_NAME: ${DOCKERFILE_NAME}"
 echo "INPUT_DOCKERFILE_NAME: ${INPUT_DOCKERFILE_NAME}"
 echo 'build_args: ' $@
 
+[ -d "./docker" ] && ls -lah ./docker
+
 [ -d "./docker" ] && docker build --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 
