@@ -4,7 +4,7 @@
 set -o errexit
 
 GIT_TAG=$(echo "${INPUT_TAG_REF}" | sed -e 's|refs/tags/||')
-IMAGE_NAME="docker.pkg.github.com/${INPUT_IMAGE_NAME}"
+IMAGE_NAME="${INPUT_IMAGE_NAME}"
 
 if [ -n "${INPUT_IMAGE_TAG}" ]; then
     IMAGE_TAG="${INPUT_IMAGE_TAG}"
@@ -17,7 +17,7 @@ echo "Building ${IMAGE_NAME}:${IMAGE_TAG} based on Git tag ${GIT_TAG} ..."
 echo "Creating build-version.txt file ..."
 echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 
-echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u github --password-stdin https://docker.pkg.github.com/v2/
+echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u github --password-stdin https://ghcr.io
 
 git checkout "${GIT_TAG}"
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
