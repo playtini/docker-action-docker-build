@@ -3,6 +3,8 @@
 
 set -o errexit
 
+git config --global --add safe.directory $GITHUB_WORKSPACE
+
 GIT_TAG=$(echo "${INPUT_TAG_REF}" | sed -e 's|refs/tags/||')
 IMAGE_NAME="${INPUT_IMAGE_NAME}"
 
@@ -18,11 +20,6 @@ echo "Creating build-version.txt file ..."
 echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 
 echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u github --password-stdin https://ghcr.io
-
-env
-pwd
-
-git config --global --add safe.directory $GITHUB_WORKSPACE
 
 git checkout "${GIT_TAG}"
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
