@@ -22,6 +22,8 @@ echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u github --password-stdin http
 env
 pwd
 
+git config --global --add safe.directory $GITHUB_WORKSPACE
+
 git checkout "${GIT_TAG}"
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.schema-version=1.0" \
