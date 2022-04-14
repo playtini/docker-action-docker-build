@@ -1,4 +1,4 @@
-FROM docker:dind
+FROM docker:20.10.12-dind
 
 RUN apk --no-cache add git curl
 COPY entrypoint.sh /entrypoint.sh
