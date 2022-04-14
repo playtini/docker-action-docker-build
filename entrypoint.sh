@@ -19,6 +19,9 @@ echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 
 echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u github --password-stdin https://ghcr.io
 
+env
+pwd
+
 git checkout "${GIT_TAG}"
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.schema-version=1.0" \
