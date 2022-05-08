@@ -5,6 +5,9 @@ set -o errexit
 
 git config --global --add safe.directory $GITHUB_WORKSPACE
 
+[[ -z "${INPUT_REGISTRY_USERNAME}" ]] && INPUT_REGISTRY_USERNAME="github"
+[[ -z "${INPUT_REGISTRY_DOMAIN}" ]] && INPUT_REGISTRY_DOMAIN="ghcr.io"
+
 GIT_TAG=$(echo "${INPUT_TAG_REF}" | sed -e 's|refs/tags/||')
 IMAGE_NAME="${INPUT_IMAGE_NAME}"
 
@@ -19,7 +22,7 @@ echo "Building ${IMAGE_NAME}:${IMAGE_TAG} based on Git tag ${GIT_TAG} ..."
 echo "Creating build-version.txt file ..."
 echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 
-echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u github --password-stdin https://ghcr.io
+echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u ${INPUT_REGISTRY_USERNAME} --password-stdin https://${INPUT_REGISTRY_DOMAIN}
 
 git checkout "${GIT_TAG}"
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
@@ -45,7 +48,7 @@ if [ -n "${INPUT_BUILD_ARGS}" ]; then
 fi
 
 DOCKERFILE_NAME=Dockerfile
-if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then 
+if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then
     DOCKERFILE_NAME=$(echo "${INPUT_DOCKERFILE_NAME}")
 fi
 
