@@ -61,8 +61,8 @@ echo 'build_args: ' $@
 DOCKER_BUILDKIT=1
 docker info
 [ -d "./docker" ] \
-    && docker build --cache-from="${IMAGE_NAME}" --build-arg BUILDKIT_INLINE_CACHE=1 --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . \
-    || docker build --cache-from="${IMAGE_NAME}" --build-arg BUILDKIT_INLINE_CACHE=1 --network host -f ./"${DOCKERFILE_NAME}" "$@" .
+    && docker buildx --cache-from="${IMAGE_NAME}:cache" --cache-to="${IMAGE_NAME}:cache" --build-arg BUILDKIT_INLINE_CACHE=1 --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . \
+    || docker buildx --cache-from="${IMAGE_NAME}:cache" --cache-to="${IMAGE_NAME}:cache" --build-arg BUILDKIT_INLINE_CACHE=1 --network host -f ./"${DOCKERFILE_NAME}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 if [ -n "${INPUT_IMAGE_TAG_2}" ]; then
     docker tag "${IMAGE_NAME}:${IMAGE_TAG}" "${IMAGE_NAME}:${INPUT_IMAGE_TAG_2}"
