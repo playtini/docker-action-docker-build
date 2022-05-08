@@ -58,6 +58,10 @@ echo 'build_args: ' $@
 
 [ -d "./docker" ] && ls -lah ./docker
 
+# cache
+docker pull "${IMAGE_NAME}:latest" || echo "No caching image ${IMAGE_NAME}:latest
+docker pull "${IMAGE_NAME}:${IMAGE_TAG}" || echo "No caching image ${IMAGE_NAME}:${IMAGE_TAG}
+
 [ -d "./docker" ] && docker build --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 if [ -n "${INPUT_IMAGE_TAG_2}" ]; then
