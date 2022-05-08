@@ -59,8 +59,7 @@ echo 'build_args: ' $@
 [ -d "./docker" ] && ls -lah ./docker
 
 DOCKER_BUILDKIT=1
-docker info | grep 'Server Version'
-docker info | grep 'buildx'
+docker info
 [ -d "./docker" ] \
     && docker build --cache-from="${IMAGE_NAME}" --build-arg BUILDKIT_INLINE_CACHE=1 --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . \
     || docker build --cache-from="${IMAGE_NAME}" --build-arg BUILDKIT_INLINE_CACHE=1 --network host -f ./"${DOCKERFILE_NAME}" "$@" .
