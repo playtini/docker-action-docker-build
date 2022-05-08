@@ -60,7 +60,7 @@ echo 'build_args: ' $@
 
 [ -d "./docker" ] && docker build --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
-if [ -n "${INPUT_IMAGE_TAG_2}" != "" ]; then
+if [ -n "${INPUT_IMAGE_TAG_2}" ]; then
     docker tag "${IMAGE_NAME}:${IMAGE_TAG}" "${IMAGE_NAME}:${INPUT_IMAGE_TAG_2}"
     docker push "${IMAGE_NAME}:${INPUT_IMAGE_TAG_2}"
 fi
