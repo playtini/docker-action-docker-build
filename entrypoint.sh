@@ -58,6 +58,7 @@ echo 'build_args: ' $@
 
 [ -d "./docker" ] && ls -lah ./docker
 
+docker pull "${IMAGE_NAME}:latest" || echo "no latest image"
 [ -d "./docker" ] \
     && docker build --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . \
     || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
