@@ -26,10 +26,12 @@ echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u ${INPUT_REGISTRY_USERNAME} -
 
 echo "=== test1"
 pwd
+pwd | base64
 ls -l
 echo "=== test2"
 cd ${GITHUB_WORKSPACE}
 pwd
+pwd | base64
 ls -l
 
 git checkout "${GIT_TAG}"
