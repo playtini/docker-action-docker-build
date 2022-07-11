@@ -1,0 +1,55 @@
+name: 'Dynamic Build Docker Image'
+description: 'Build a Docker image from a tagged release and publish it to Github Packages. Supports dynamic build arguments.'
+author: 'Flownative'
+inputs:
+    tag_ref:
+        description: 'The full tag reference. This must be a semver tag ref of an existing tagged image. For example, `refs/tags/v1.2.5+12`'
+        required: true
+        default: ''
+    git_sha:
+        description: 'The SHA hash of the Git commit being used for the build. If set, this value is used as a label for the resulting Docker image'
+        required: false
+        default: ''
+    git_repository_url:
+        description: 'The URL leading to the Git repository. If set, this value is used as a label for the resulting Docker image'
+        required: false
+        default: ''
+    image_name:
+        description: 'The image name to build, without tag. For example, `flownative/docker-magic-image/magic-image`'
+        required: true
+        default: ''
+    image_tag:
+        description: 'The image tag to build. If empty, the tag is derived from tag_ref: e.g. `v1.2.5`'
+        required: false
+        default: ''
+    image_tag_2:
+        description: 'The alternative image tag to build. If empty, don''t tag'
+        required: false
+        default: ''
+    registry_username:
+        description: 'Username for the Docker image registry'
+        required: true
+        default: ''
+    registry_password:
+        description: 'Password for the Docker image registry'
+        required: true
+        default: ''
+    dockerfile_name:
+        description: 'Dockerfile name. If empty - Dockerfile'
+        required: true
+        default: 'Dockerfile'
+
+outputs:
+    image_name:
+        description: 'The name of the Docker image, which was built and pushed'
+    image_tag:
+        description: 'The tag of the Docker image, which was built and pushed'
+    git_tag:
+        description: 'The tag of the Git commit, which was discovered during the process'
+
+runs:
+    using: 'docker'
+    image: 'Dockerfile'
+branding:
+    icon: 'package'
+    color: 'blue'
