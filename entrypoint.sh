@@ -1,6 +1,8 @@
 #!/bin/sh
 # shellcheck disable=SC2001
 
+# https://github.com/flownative/docker-action-docker-build/blob/master/entrypoint.sh
+
 set -o errexit
 
 git config --global --add safe.directory $GITHUB_WORKSPACE
