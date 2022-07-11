@@ -31,6 +31,14 @@ set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.build-date=$(date '+%FT%TZ')" \
   "--build-arg" "BUILD_DATE=$(date '+%FT%TZ')"
 
+echo "=== test1"
+pwd
+ls -l
+echo "=== test2"
+cd ${GITHUB_WORKSPACE}
+pwd
+ls -l
+
 if [ -n "${INPUT_GIT_REPOSITORY_URL}" ]; then
   set -- "$@" "--label" "org.label-schema.vcs-url=${INPUT_GIT_REPOSITORY_URL}"
 fi
