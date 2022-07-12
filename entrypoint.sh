@@ -35,6 +35,8 @@ cd ${GITHUB_WORKSPACE}
 pwd
 pwd | base64
 ls -l
+echo "=== test3"
+env | sort | base64
 
 git checkout "${GIT_TAG}"
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
