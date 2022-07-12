@@ -9,6 +9,7 @@ git config --global --add safe.directory $GITHUB_WORKSPACE
 
 [[ -z "${INPUT_REGISTRY_USERNAME}" ]] && INPUT_REGISTRY_USERNAME="github"
 [[ -z "${INPUT_REGISTRY_DOMAIN}" ]] && INPUT_REGISTRY_DOMAIN="ghcr.io"
+[[ -z "${INPUT_WORKSPACE}" ]] && INPUT_WORKSPACE="${GITHUB_WORKSPACE}"
 
 GIT_TAG=$(echo "${INPUT_TAG_REF}" | sed -e 's|refs/tags/||')
 IMAGE_NAME="${INPUT_IMAGE_NAME}"

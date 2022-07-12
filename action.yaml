@@ -42,6 +42,10 @@ inputs:
         description: 'Dockerfile name. If empty - Dockerfile'
         required: true
         default: 'Dockerfile'
+    workspace:
+        description: 'Path to repository. If empty - ${GITHUB_WORKSPACE}'
+        required: true
+        default: ''
 
 outputs:
     image_name:
