@@ -5,11 +5,15 @@
 
 set -o errexit
 
-git config --global --add safe.directory $GITHUB_WORKSPACE
+echo "=== test0"
+echo ${INPUT_WORKSPACE} | base64; pwd | base64; echo ${GITHUB_WORKSPACE} | base64
+env | sort
 
 [[ -z "${INPUT_REGISTRY_USERNAME}" ]] && INPUT_REGISTRY_USERNAME="github"
 [[ -z "${INPUT_REGISTRY_DOMAIN}" ]] && INPUT_REGISTRY_DOMAIN="ghcr.io"
-[[ -z "${INPUT_WORKSPACE}" ]] && INPUT_WORKSPACE="${GITHUB_WORKSPACE}"
+[[ -z "${INPUT_WORKSPACE}" ]] && INPUT_WORKSPACE="${GITHUB_WORKSPACE}" || GITHUB_WORKSPACE="${INPUT_WORKSPACE}"
+
+git config --global --add safe.directory $GITHUB_WORKSPACE
 
 GIT_TAG=$(echo "${INPUT_TAG_REF}" | sed -e 's|refs/tags/||')
 IMAGE_NAME="${INPUT_IMAGE_NAME}"
@@ -28,8 +32,7 @@ echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 docker login -u ${INPUT_REGISTRY_USERNAME} -p "${INPUT_REGISTRY_PASSWORD}" https://${INPUT_REGISTRY_DOMAIN}
 
 echo "=== test1"
-echo ${INPUT_WORKSPACE} | base64; pwd | base64
-echo ${GITHUB_WORKSPACE} | base64; pwd | base64
+echo ${INPUT_WORKSPACE} | base64; pwd | base64; echo ${GITHUB_WORKSPACE} | base64
 env | sort
 
 git checkout "${GIT_TAG}"
