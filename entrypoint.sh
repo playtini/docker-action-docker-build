@@ -24,7 +24,7 @@ echo "Building ${IMAGE_NAME}:${IMAGE_TAG} based on Git tag ${GIT_TAG} ..."
 echo "Creating build-version.txt file ..."
 echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 
-echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u ${INPUT_REGISTRY_USERNAME} --password-stdin https://${INPUT_REGISTRY_DOMAIN}
+docker login -u ${INPUT_REGISTRY_USERNAME} -p "${INPUT_REGISTRY_PASSWORD}" https://${INPUT_REGISTRY_DOMAIN}
 
 echo "=== test1"
 pwd
