@@ -27,15 +27,6 @@ echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 docker login -u ${INPUT_REGISTRY_USERNAME} -p "${INPUT_REGISTRY_PASSWORD}" https://${INPUT_REGISTRY_DOMAIN}
 
 echo "=== test1"
-pwd
-pwd | base64
-ls -l
-echo "=== test2"
-cd ${GITHUB_WORKSPACE}
-pwd
-pwd | base64
-ls -l
-echo "=== test3"
 env | sort
 
 git checkout "${GIT_TAG}"
