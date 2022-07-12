@@ -26,16 +26,14 @@ echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 
 docker login -u ${INPUT_REGISTRY_USERNAME} -p "${INPUT_REGISTRY_PASSWORD}" https://${INPUT_REGISTRY_DOMAIN}
 
-echo "=== test1"
-pwd
+echo "=== workspace ==="
 ls -l
 
 git checkout "${GIT_TAG}"
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.schema-version=1.0" \
   "--label" "org.label-schema.version=${IMAGE_TAG}" \
-  "--label" "org.label-schema.build-date=$(date '+%FT%TZ')" \
-  "--build-arg" "BUILD_DATE=$(date '+%FT%TZ')"
+  "--label" "org.label-schema.build-date=$(date '+%FT%TZ')"
 
 if [ -n "${INPUT_GIT_REPOSITORY_URL}" ]; then
   set -- "$@" "--label" "org.label-schema.vcs-url=${INPUT_GIT_REPOSITORY_URL}"
