@@ -73,6 +73,6 @@ if [ -n "${INPUT_IMAGE_TAG_2}" ]; then
     docker push "${IMAGE_NAME}:${INPUT_IMAGE_TAG_2}"
 fi
 
-echo "image_name::${IMAGE_NAME}" >> $GITHUB_OUTPUT
-echo "image_tag::${IMAGE_TAG}" >> $GITHUB_OUTPUT
-echo "git_tag::${GIT_TAG}" >> $GITHUB_OUTPUT
+echo "image_name=${IMAGE_NAME}" >> $GITHUB_OUTPUT
+echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
+echo "git_tag=${GIT_TAG}" >> $GITHUB_OUTPUT
