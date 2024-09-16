@@ -10,7 +10,7 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v4
 
             -   name: Build Docker image
                 uses: flownative/action-docker-build@v1.4.1
@@ -23,7 +23,7 @@ jobs:
 
             -   name: Determine latest released version
                 id: latest_version
-                uses: flownative/action-git-latest-release@master
+                uses: flownative/action-git-latest-release@v1.1.2
 
             -   name: Tag semver releases
                 uses: flownative/action-docker-publish-semver@master
