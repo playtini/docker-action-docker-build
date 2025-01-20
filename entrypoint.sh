@@ -37,9 +37,13 @@ echo "INPUT_GIT_REPOSITORY_URL: ${INPUT_GIT_REPOSITORY_URL}"
 echo "INPUT_GIT_SHA: ${INPUT_GIT_SHA}"
 
 ls -l
-
-git checkout "${GIT_TAG}"
-echo 'checkout complete'
+if [ -n "${GIT_TAG}" ]; then
+    git checkout "${GIT_TAG}"
+    echo "checkout complete ${GIT_TAG}"
+elif [ -n "${INPUT_GIT_SHA}" ]; then
+    git checkout "${INPUT_GIT_SHA}"
+    echo "checkout complete ${INPUT_GIT_SHA}"
+fi
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.schema-version=1.0" \
   "--label" "org.label-schema.version=${IMAGE_TAG}" \
