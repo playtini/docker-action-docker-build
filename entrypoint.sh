@@ -38,11 +38,9 @@ echo "INPUT_GIT_SHA: ${INPUT_GIT_SHA}"
 
 ls -l
 if [ -n "${GIT_TAG}" ]; then
+    echo "checkout begin ${GIT_TAG}"
     git checkout "${GIT_TAG}"
-    echo "checkout complete ${GIT_TAG}"
-elif [ -n "${INPUT_GIT_SHA}" ]; then
-    git checkout "${INPUT_GIT_SHA}"
-    echo "checkout complete ${INPUT_GIT_SHA}"
+    echo "checkout end ${GIT_TAG}"
 fi
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.schema-version=1.0" \
