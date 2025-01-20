@@ -28,9 +28,18 @@ echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
 echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u ${INPUT_REGISTRY_USERNAME} --password-stdin https://${INPUT_REGISTRY_DOMAIN}
 
 echo "=== workspace ==="
+
+echo "Params:"
+echo "GIT_TAG: ${GIT_TAG}"
+echo "IMAGE_NAME: ${IMAGE_NAME}"
+echo "IMAGE_TAG: ${IMAGE_TAG}"
+echo "INPUT_GIT_REPOSITORY_URL: ${INPUT_GIT_REPOSITORY_URL}"
+echo "INPUT_GIT_SHA: ${INPUT_GIT_SHA}"
+
 ls -l
 
 git checkout "${GIT_TAG}"
+echo 'checkout complete'
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.schema-version=1.0" \
   "--label" "org.label-schema.version=${IMAGE_TAG}" \
