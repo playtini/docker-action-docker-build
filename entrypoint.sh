@@ -91,8 +91,8 @@ echo "$@"
 
 #docker pull "${IMAGE_NAME}:latest" || echo "no latest image"
 [ -d "./docker" ] \
-    && docker build --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . \
-    || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
+    && docker build --no-cache --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . \
+    || docker build --no-cache --network host -f ./"${DOCKERFILE_NAME}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 if [ -n "${INPUT_IMAGE_TAG_2}" ]; then
     echo 'docker tag2'
