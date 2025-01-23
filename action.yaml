@@ -26,6 +26,10 @@ inputs:
         description: 'The alternative image tag to build. If empty, don''t tag'
         required: false
         default: ''
+    git_branch:
+        description: 'Branch for checkout. If empty, don''t tag'
+        required: false
+        default: ''
     registry_domain:
         description: 'Domain for the Docker image registry'
         required: true
