@@ -81,7 +81,8 @@ fi
 
 echo "DOCKERFILE_NAME: ${DOCKERFILE_NAME}"
 echo "INPUT_DOCKERFILE_NAME: ${INPUT_DOCKERFILE_NAME}"
-echo 'build_args: ' $@
+echo 'build_args: '
+echo "$@"
 
 [ -d "./docker" ] && ls -lah ./docker
 
