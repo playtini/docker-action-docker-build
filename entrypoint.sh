@@ -81,6 +81,9 @@ fi
 
 echo "DOCKERFILE_NAME: ${DOCKERFILE_NAME}"
 echo "INPUT_DOCKERFILE_NAME: ${INPUT_DOCKERFILE_NAME}"
+echo "IMAGE_NAME: ${IMAGE_NAME}"
+echo "IMAGE_TAG: ${IMAGE_TAG}"
+echo "INPUT_IMAGE_TAG_2: ${INPUT_IMAGE_TAG_2}"
 echo 'build_args: '
 echo "$@"
 
@@ -92,6 +95,7 @@ docker pull "${IMAGE_NAME}:latest" || echo "no latest image"
     || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 if [ -n "${INPUT_IMAGE_TAG_2}" ]; then
+    echo 'docker tag2'
     docker tag "${IMAGE_NAME}:${IMAGE_TAG}" "${IMAGE_NAME}:${INPUT_IMAGE_TAG_2}"
     docker push "${IMAGE_NAME}:${INPUT_IMAGE_TAG_2}"
 fi
