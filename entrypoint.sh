@@ -42,9 +42,6 @@ if [ -n "${GIT_TAG}" ]; then
     git checkout "${GIT_TAG}"
     echo "checkout end ${GIT_TAG}"
 fi
-echo "Checkout begin to ${INPUT_GIT_SHA}"
-git checkout "${INPUT_GIT_SHA}"
-echo "checkout end ${INPUT_GIT_SHA}"
 
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.schema-version=1.0" \
