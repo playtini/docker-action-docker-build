@@ -22,7 +22,7 @@ fi
 echo "Building ${IMAGE_NAME}:${IMAGE_TAG} based on Git tag ${GIT_TAG} ..."
 
 echo "Creating build-version.txt file ..."
-echo "${GIT_TAG}" > "${GITHUB_WORKSPACE}/build-version.txt"
+echo "${GIT_TAG}" >> "${GITHUB_WORKSPACE}/build-version.txt"
 
 #docker login -u ${INPUT_REGISTRY_USERNAME} -p "${INPUT_REGISTRY_PASSWORD}" https://${INPUT_REGISTRY_DOMAIN}
 echo "${INPUT_REGISTRY_PASSWORD}" | docker login -u ${INPUT_REGISTRY_USERNAME} --password-stdin https://${INPUT_REGISTRY_DOMAIN}
@@ -48,6 +48,8 @@ if [ -n "${GIT_TAG}" ]; then
     git checkout "${GIT_TAG}"
     echo "checkout end ${GIT_TAG}"
 fi
+
+git fetch && git pull
 
 ls -lah
 
