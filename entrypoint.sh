@@ -9,6 +9,7 @@ set -o errexit
 [[ -z "${INPUT_REGISTRY_DOMAIN}" ]] && INPUT_REGISTRY_DOMAIN="ghcr.io"
 
 git config --global --add safe.directory $GITHUB_WORKSPACE
+git config --global user.name "githubrunner"
 
 GIT_TAG=$(echo "${INPUT_TAG_REF}" | sed -e 's|refs/tags/||')
 IMAGE_NAME="${INPUT_IMAGE_NAME}"
