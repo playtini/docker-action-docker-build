@@ -51,6 +51,8 @@ fi
 
 ls -lah
 
+git status
+
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
   "--label" "org.label-schema.schema-version=1.0" \
   "--label" "org.label-schema.version=${IMAGE_TAG}" \
