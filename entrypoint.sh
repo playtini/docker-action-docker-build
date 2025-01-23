@@ -35,12 +35,19 @@ echo "IMAGE_NAME: ${IMAGE_NAME}"
 echo "IMAGE_TAG: ${IMAGE_TAG}"
 echo "INPUT_GIT_REPOSITORY_URL: ${INPUT_GIT_REPOSITORY_URL}"
 echo "INPUT_GIT_SHA: ${INPUT_GIT_SHA}"
+echo "INPUT_GIT_BRANCH: ${INPUT_GIT_BRANCH}"
 
 ls -lah
 if [ -n "${GIT_TAG}" ]; then
     echo "checkout begin ${GIT_TAG}"
     git checkout "${GIT_TAG}"
     echo "checkout end ${GIT_TAG}"
+fi
+
+if [ -n "${INPUT_GIT_BRANCH}" ]; then
+    echo "checkout begin ${INPUT_GIT_BRANCH}"
+    git checkout "${INPUT_GIT_BRANCH}"
+    echo "checkout end ${INPUT_GIT_BRANCH}"
 fi
 
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
