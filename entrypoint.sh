@@ -36,7 +36,7 @@ echo "IMAGE_TAG: ${IMAGE_TAG}"
 echo "INPUT_GIT_REPOSITORY_URL: ${INPUT_GIT_REPOSITORY_URL}"
 echo "INPUT_GIT_SHA: ${INPUT_GIT_SHA}"
 
-ls -l
+ls -lah
 if [ -n "${GIT_TAG}" ]; then
     echo "checkout begin ${GIT_TAG}"
     git checkout "${GIT_TAG}"
