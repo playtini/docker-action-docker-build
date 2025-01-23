@@ -38,6 +38,8 @@ echo "INPUT_GIT_REPOSITORY_URL: ${INPUT_GIT_REPOSITORY_URL}"
 echo "INPUT_GIT_SHA: ${INPUT_GIT_SHA}"
 echo "INPUT_GIT_BRANCH: ${INPUT_GIT_BRANCH}"
 
+git remote -v
+
 if [ -n "${INPUT_GIT_BRANCH}" ]; then
     echo "checkout begin ${INPUT_GIT_BRANCH}"
     git checkout "${INPUT_GIT_BRANCH}"
