@@ -51,8 +51,8 @@ if [ -n "${GIT_TAG}" ]; then
     git checkout "${GIT_TAG}"
     echo "checkout end ${GIT_TAG}"
 fi
-
-git fetch && git pull
+echo "Fetch begin"
+git fetch
 
 ls -lah
 
