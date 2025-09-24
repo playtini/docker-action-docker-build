@@ -54,8 +54,6 @@ fi
 echo "Fetch begin"
 git fetch
 
-ls -lah
-
 git status
 
 set -- "-t" "${IMAGE_NAME}:${IMAGE_TAG}" \
