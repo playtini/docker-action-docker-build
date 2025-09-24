@@ -42,6 +42,10 @@ inputs:
         description: 'Password for the Docker image registry'
         required: true
         default: ''
+    github_token:
+        description: 'GitHub token for accessing private repositories during Docker build'
+        required: false
+        default: ''
     dockerfile_name:
         description: 'Dockerfile name. If empty - Dockerfile'
         required: true

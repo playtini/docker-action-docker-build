@@ -72,6 +72,18 @@ fi
 
 echo "INPUT_BUILD_ARGS:" ${INPUT_BUILD_ARGS}
 
+GITHUB_TOKEN_TO_USE=""
+if [ -n "${INPUT_GITHUB_TOKEN}" ]; then
+    GITHUB_TOKEN_TO_USE="${INPUT_GITHUB_TOKEN}"
+elif [ -n "${GITHUB_TOKEN}" ]; then
+    GITHUB_TOKEN_TO_USE="${GITHUB_TOKEN}"
+fi
+
+if [ -n "${GITHUB_TOKEN_TO_USE}" ]; then
+    INPUT_BUILD_ARGS="${INPUT_BUILD_ARGS} GITHUB_TOKEN=${GITHUB_TOKEN_TO_USE}"
+    echo "GitHub token added to build args"
+fi
+
 if [ -n "${INPUT_BUILD_ARGS}" ]; then
     for line in $INPUT_BUILD_ARGS
     do
