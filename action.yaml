@@ -50,7 +50,10 @@ inputs:
         description: 'Dockerfile name. If empty - Dockerfile'
         required: true
         default: 'Dockerfile'
-
+    no_cache:
+        description: 'Build image without using cache (--no-cache flag)'
+        required: false
+        default: 'false'
 outputs:
     image_name:
         description: 'The name of the Docker image, which was built and pushed'

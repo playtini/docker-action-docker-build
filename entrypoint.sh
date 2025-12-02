@@ -82,6 +82,11 @@ if [ -n "${INPUT_BUILD_ARGS}" ]; then
     done
 fi
 
+if [ "${INPUT_NO_CACHE}" = "true" ]; then
+    set -- "$@" "--no-cache"
+    echo "Building without cache (--no-cache enabled)"
+fi
+
 DOCKERFILE_NAME=Dockerfile
 if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then
     DOCKERFILE_NAME=$(echo "${INPUT_DOCKERFILE_NAME}")
