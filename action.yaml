@@ -54,6 +54,10 @@ inputs:
         description: 'Build image without using cache (--no-cache flag)'
         required: false
         default: 'false'
+    build_args:
+        description: 'Space-separated KEY=VALUE pairs, each passed to docker build as --build-arg. For example, `APP_VERSION=v1.2.3 GIT_SHA=abc123`. Values must not contain spaces.'
+        required: false
+        default: ''
 outputs:
     image_name:
         description: 'The name of the Docker image, which was built and pushed'
