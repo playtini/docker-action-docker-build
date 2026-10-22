@@ -87,6 +87,11 @@ if [ "${INPUT_NO_CACHE}" = "true" ]; then
     echo "Building without cache (--no-cache enabled)"
 fi
 
+if [ "${INPUT_PULL}" != "false" ]; then
+    set -- "$@" "--pull"
+    echo "Pulling newer base images (--pull enabled)"
+fi
+
 DOCKERFILE_NAME=Dockerfile
 if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then
     DOCKERFILE_NAME=$(echo "${INPUT_DOCKERFILE_NAME}")

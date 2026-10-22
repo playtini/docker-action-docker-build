@@ -54,6 +54,10 @@ inputs:
         description: 'Build image without using cache (--no-cache flag)'
         required: false
         default: 'false'
+    pull:
+        description: 'Always pull newer versions of the base images (--pull flag), so floating tags like `php:8.3-cli` pick up security patches. Set to `false` to build from the runner''s cached base images'
+        required: false
+        default: 'true'
     build_args:
         description: 'Space-separated KEY=VALUE pairs, each passed to docker build as --build-arg. For example, `APP_VERSION=v1.2.3 GIT_SHA=abc123`. Values must not contain spaces.'
         required: false
