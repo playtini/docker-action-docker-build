@@ -10,10 +10,10 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v4
+            -   uses: actions/checkout@v7
 
             -   name: Build Docker image
-                uses: flownative/action-docker-build@v1.4.1
+                uses: flownative/action-docker-build@v1.8.0
                 with:
                     tag_ref: ${{ github.ref }}
                     git_repository_url: https://github.com/${{ github.repository }}
@@ -23,7 +23,7 @@ jobs:
 
             -   name: Determine latest released version
                 id: latest_version
-                uses: flownative/action-git-latest-release@v1.1.2
+                uses: flownative/action-git-latest-release@v1.1.3
 
             -   name: Tag semver releases
                 uses: flownative/action-docker-publish-semver@master
