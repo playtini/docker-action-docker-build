@@ -108,9 +108,14 @@ echo "$@"
 [ -d "./docker" ] && ls -lah ./docker
 
 docker pull "${IMAGE_NAME}:latest" || echo "no latest image"
-[ -d "./docker" ] \
-    && docker build --network host -f ./docker/"${DOCKERFILE_NAME}" "$@" . \
-    || docker build --network host -f ./"${DOCKERFILE_NAME}" "$@" .
+# Choose the Dockerfile by existence: falling back whenever the docker/ build FAILED silently
+# shipped the root Dockerfile (often an old, vulnerable one) instead of failing the job.
+DOCKERFILE_PATH=./"${DOCKERFILE_NAME}"
+if [ -f ./docker/"${DOCKERFILE_NAME}" ]; then
+    DOCKERFILE_PATH=./docker/"${DOCKERFILE_NAME}"
+fi
+echo "DOCKERFILE_PATH: ${DOCKERFILE_PATH}"
+docker build --network host -f "${DOCKERFILE_PATH}" "$@" .
 docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 if [ -n "${INPUT_IMAGE_TAG_2}" ]; then
     echo 'docker tag2'
