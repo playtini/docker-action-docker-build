@@ -21,3 +21,8 @@ ends up in image layers or `docker history`. Read it in the Dockerfile with:
 ```dockerfile
 RUN --mount=type=secret,id=composer_auth,env=COMPOSER_AUTH composer install --no-dev ...
 ```
+
+The `env=` mount option is parsed by the Dockerfile frontend built into the **daemon's** BuildKit, not by the
+docker CLI inside this action's image, so it needs Docker Engine 27.3+ (Dockerfile frontend 1.10+) on the runner
+host. On an older engine, read the file instead:
+`RUN --mount=type=secret,id=composer_auth COMPOSER_AUTH="$(cat /run/secrets/composer_auth)" composer install ...`
