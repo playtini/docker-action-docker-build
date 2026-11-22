@@ -63,7 +63,7 @@ inputs:
         required: false
         default: ''
     composer_auth:
-        description: 'Composer auth.json content (for example `${{ secrets.COMPOSER_AUTH }}`). When set, the build runs with BuildKit and receives it as the build secret `composer_auth`, never as a build arg, so it is not stored in image layers or history. Use it in the Dockerfile as `RUN --mount=type=secret,id=composer_auth,env=COMPOSER_AUTH composer install ...`. `env=` needs Docker Engine 27.3+ on the runner host (the daemon parses the Dockerfile). When empty, the build is unchanged.'
+        description: 'Composer auth.json content (pass the org secret COMPOSER_AUTH). When set, the build runs with BuildKit and receives it as the build secret `composer_auth`, never as a build arg, so it is not stored in image layers or history. Use it in the Dockerfile as `RUN --mount=type=secret,id=composer_auth,env=COMPOSER_AUTH composer install ...`. `env=` needs Docker Engine 27.3+ on the runner host (the daemon parses the Dockerfile). When empty, the build is unchanged.'
         required: false
         default: ''
 outputs:
