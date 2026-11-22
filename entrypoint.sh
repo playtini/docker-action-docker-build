@@ -92,6 +92,19 @@ if [ "${INPUT_PULL}" != "false" ]; then
     echo "Pulling newer base images (--pull enabled)"
 fi
 
+if [ -n "${INPUT_COMPOSER_AUTH}" ]; then
+    # Composer credentials go in as a BuildKit secret, never a build arg: build args are
+    # recorded in the image history, secrets are only mounted for the RUN that asks for them.
+    # The CLI in this image (20.10) reads secrets from a file, so stage it in a 0600 temp file.
+    COMPOSER_AUTH_FILE=$(mktemp)
+    trap 'rm -f "${COMPOSER_AUTH_FILE}"' EXIT
+    chmod 600 "${COMPOSER_AUTH_FILE}"
+    printf '%s' "${INPUT_COMPOSER_AUTH}" > "${COMPOSER_AUTH_FILE}"
+    export DOCKER_BUILDKIT=1
+    set -- "$@" "--secret" "id=composer_auth,src=${COMPOSER_AUTH_FILE}"
+    echo "Composer auth passed as BuildKit secret composer_auth (BuildKit enabled)"
+fi
+
 DOCKERFILE_NAME=Dockerfile
 if [ -n "${INPUT_DOCKERFILE_NAME}" ]; then
     DOCKERFILE_NAME=$(echo "${INPUT_DOCKERFILE_NAME}")
